@@ -35,8 +35,7 @@ def check_document_existance(user_doc_number):
     return doc_founded
 
 
-def get_doc_owner_name():
-    user_doc_number = input('Введите номер документа - ')
+def get_doc_owner_name(user_doc_number):
     doc_exist = check_document_existance(user_doc_number)
     if doc_exist:
         for current_document in documents:
@@ -78,8 +77,7 @@ def append_doc_to_shelf(doc_number, shelf_number):
     return directories
 
 
-def delete_doc():
-    user_doc_number = input('Введите номер документа - ')
+def delete_doc(user_doc_number):
     doc_exist = check_document_existance(user_doc_number)
     if doc_exist:
         for current_document in documents:
@@ -90,8 +88,7 @@ def delete_doc():
                 return doc_number, True
 
 
-def get_doc_shelf():
-    user_doc_number = input('Введите номер документа - ')
+def get_doc_shelf(user_doc_number):
     doc_exist = check_document_existance(user_doc_number)
     if doc_exist:
         for directory_number, directory_docs_list in directories.items():
@@ -99,17 +96,14 @@ def get_doc_shelf():
                 return directory_number
 
 
-def move_doc_to_shelf():
-    user_doc_number = input('Введите номер документа - ')
-    user_shelf_number = input('Введите номер полки для перемещения - ')
+def move_doc_to_shelf(user_doc_number, user_shelf_number):
     remove_doc_from_shelf(user_doc_number)
     append_doc_to_shelf(user_doc_number, user_shelf_number)
     print('Документ номер "{}" был перемещен на полку номер "{}"'.format(user_doc_number, user_shelf_number))
     return directories
 
 
-def show_document_info():
-    index = int(input("Введите индекс документа "))
+def show_document_info(index):
     inform = []
     doc_type = documents[index]['type']
     inform.append(doc_type)
@@ -120,11 +114,7 @@ def show_document_info():
     return inform
 
 
-def add_new_doc():
-    new_doc_number = input('Введите номер документа - ')
-    new_doc_type = input('Введите тип документа - ')
-    new_doc_owner_name = input('Введите имя владельца документа- ')
-    new_doc_shelf_number = input('Введите номер полки для хранения - ')
+def add_new_doc(new_doc_number, new_doc_type, new_doc_owner_name, new_doc_shelf_number):
     new_doc = {
         "type": new_doc_type,
         "number": new_doc_number,
@@ -133,3 +123,6 @@ def add_new_doc():
     documents.append(new_doc)
     append_doc_to_shelf(new_doc_number, new_doc_shelf_number)
     return documents, directories
+
+# print(type(add_new_doc('100', 'pass', 'Grisha', '7')))
+# print(get_doc_owner_name())
